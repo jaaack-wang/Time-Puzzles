@@ -1,0 +1,14 @@
+defaults:
+  - schedule: default
+  - _self_
+
+output: "puzzles.json"
+seed: 42
+start_year: 1800
+end_year: 2050
+
+hydra:
+  run:
+    dir: outputs/${now:%Y%m%d%H%M%S}
+  job:
+    chdir: true
