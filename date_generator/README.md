@@ -21,7 +21,7 @@ The generation process consists of two steps: defining a generation schedule and
 
 ### 1. Prepare the Facts Database
 
-Before generating puzzles, ensure that the facts database is prepared. Ensure you have the required data file `fact_sheet.csv` in the `data/` directory. Prepare the facts database by running:
+Before generating puzzles, ensure that the facts database is prepared. Ensure you have the required data file `fact_sheet.csv` in the `data/` directory (see the `dataset` folder in parent folder). Prepare the facts database by running:
 
 ```bash
 python3 date_generator/preprocess_facts.py
