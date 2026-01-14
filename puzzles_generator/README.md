@@ -21,7 +21,7 @@ The generation process consists of two steps: defining a generation schedule and
 
 ### 1. Prepare the Facts Database
 
-Before generating puzzles, ensure that the facts database is prepared. Ensure you have the required data file `fact_sheet.csv` in the `data/` directory (see the `dataset` folder in parent folder). Prepare the facts database by running:
+Before generating puzzles, ensure that the facts database is prepared. Ensure you have the required data file `fact_sheet.csv` in the `data/` directory. Prepare the facts database by running:
 
 ```bash
 python3 date_generator/preprocess_facts.py
@@ -36,14 +36,14 @@ First, ensure the configuration directory exists:
 mkdir -p date_generator/config/schedule
 ```
 
-Use the `create_schedule.py` tool to generate a schedule file. This example creates a schedule for puzzles with 4-6 constraints and 0-6 solutions, totaling 500 samples:
+Use the `create_schedule.py` tool to generate a schedule file. This example creates a schedule for puzzles with 4-6 constraints and 1-6 solutions, totaling 500 samples:
 
 ```bash
 python -m date_generator.create_schedule \
     --output date_generator/config/schedule/default.yaml \
     --min-constraints 4 \
     --max-constraints 6 \
-    --min-solutions 0 \
+    --min-solutions 1 \
     --max-solutions 6 \
     --total-count 500
 ```
