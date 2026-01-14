@@ -4,6 +4,8 @@ This tool generates synthetic logic puzzles involving date constraints. It allow
 
 ## Installation
 
+This is only needed if you only want to generate the time puzzles without installing the `times` virtual environment described in the README.md of the parent folder.
+
 1. **Create and activate a virtual environment:**
    ```bash
    python -m venv venv
