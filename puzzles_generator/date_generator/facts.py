@@ -865,6 +865,17 @@ class KnowledgeBaseEventFact(Fact):
         # Fallback: January always has 31 days
         return datetime.date(self._get_random_year(), 1, day)
 
+    def _get_random_year_from_list(self, year_list):
+        """Get a random year from a list, filtering by year_range."""
+        filtered_years = [
+            y for y in year_list 
+            if self.year_range[0] <= y <= self.year_range[1]
+        ]
+        if filtered_years:
+            return random.choice(filtered_years)
+        # Fallback to first year in list if no years in range
+        return year_list[0] if year_list else self._get_random_year()
+
     def get_random_fact_and_date(self):
         # Pick a random row that has at least some data
         while True:
@@ -885,10 +896,10 @@ class KnowledgeBaseEventFact(Fact):
                 if pd.notna(row[col]):
                     options.append((aspect, level, int(row[col])))
 
-            # Multi
+            # Multi - store entire list for multi_year aspect
             if isinstance(row["multi_years"], list) and row["multi_years"]:
                 options.append(
-                    ("multi_year", FactLevel.YEAR, random.choice(row["multi_years"]))
+                    ("multi_year", FactLevel.YEAR, row["multi_years"])
                 )
 
             if options:
@@ -898,7 +909,12 @@ class KnowledgeBaseEventFact(Fact):
 
         # Generate Date
         if level == FactLevel.YEAR:
-            date = self._random_date_in_year(value)
+            # Handle multi_year case where value is a list
+            if aspect == "multi_year" and isinstance(value, list):
+                year = self._get_random_year_from_list(value)
+                date = self._random_date_in_year(year)
+            else:
+                date = self._random_date_in_year(value)
         elif level == FactLevel.MONTH:
             date = self._random_date_in_month(value)
         elif level == FactLevel.DAY:
